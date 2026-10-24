@@ -28,7 +28,7 @@ test("skill metadata, names, and local resources are valid", async () => {
       if (!entry.isDirectory()) continue;
       const skillRoot = path.join(groupRoot, entry.name);
       const content = await readFile(path.join(skillRoot, "SKILL.md"), "utf8");
-      const frontmatter = content.match(/^---\n([\s\S]*?)\n---\n/)?.[1];
+      const frontmatter = content.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/)?.[1];
       assert.ok(frontmatter, `${entry.name} has valid frontmatter`);
 
       const name = frontmatter.match(/^name:\s*([a-z0-9][a-z0-9-]*)\s*$/m)?.[1];
