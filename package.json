@@ -1,0 +1,38 @@
+{
+  "name": "spec-flow",
+  "version": "0.1.0",
+  "description": "Spec 主流程 + AI Code Review + Vibe 补丁的 AI 开发工作流技能包",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "spec-flow": "scripts/bin.mjs"
+  },
+  "files": [
+    "skills/",
+    "scripts/",
+    "docs/",
+    "evals/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "postinstall": "node scripts/postinstall.mjs",
+    "test": "node --test tests/install.test.mjs tests/skills.test.mjs tests/validate.test.mjs tests/doctor.test.mjs tests/evals.test.mjs",
+    "prepack": "npm test"
+  },
+  "keywords": [
+    "agent-skills",
+    "spec-driven-development",
+    "ai-workflow",
+    "qoder",
+    "claude-code",
+    "codex",
+    "cursor"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

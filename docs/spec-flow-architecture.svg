@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1600" height="1050" viewBox="0 0 1600 1050" role="img" aria-labelledby="title desc" font-family="Microsoft YaHei, Segoe UI, sans-serif" fill="#172033">
+  <title id="title">spec-flow 工作流架构图</title>
+  <desc id="desc">一个总入口连接全流程和轻量补丁，全流程产出 Spec、Plan、Review 和 Acceptance，并由验证器、纪律规则和安装体检支撑。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="1050" fill="#f6f8fc"/>
+  <text x="800" y="52" text-anchor="middle" font-size="32" font-weight="600">spec-flow 工作流架构</text>
+  <text x="800" y="82" text-anchor="middle" font-size="16" fill="#64748b">Spec 主流程 + AI Code Review + Vibe 补丁</text>
+
+  <!-- 总入口 -->
+  <rect x="90" y="115" width="220" height="72" fill="#eaf2ff" stroke="#8fb4ed" stroke-width="1.5" rx="12"/>
+  <text x="200" y="146" text-anchor="middle" font-size="19" font-weight="600">用户需求</text>
+  <text x="200" y="169" text-anchor="middle" font-size="14" fill="#526078">自然语言描述</text>
+  <line x1="310" y1="151" x2="405" y2="151" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <rect x="415" y="115" width="260" height="72" fill="#eaf2ff" stroke="#8fb4ed" stroke-width="1.5" rx="12"/>
+  <text x="545" y="146" text-anchor="middle" font-size="19" font-weight="600">/spec-flow-go</text>
+  <text x="545" y="169" text-anchor="middle" font-size="14" fill="#526078">新需求分流 · 旧任务续接</text>
+  <line x1="675" y1="151" x2="770" y2="151" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <rect x="780" y="115" width="240" height="72" fill="#eaf2ff" stroke="#8fb4ed" stroke-width="1.5" rx="12"/>
+  <text x="900" y="146" text-anchor="middle" font-size="19" font-weight="600">判断轻重</text>
+  <text x="900" y="169" text-anchor="middle" font-size="14" fill="#526078">拿不准就走全流程</text>
+
+  <!-- 全流程 -->
+  <rect x="45" y="225" width="1510" height="250" fill="#ffffff" stroke="#dce3ee" stroke-width="1.5" rx="18"/>
+  <text x="75" y="260" font-size="19" font-weight="600">重需求：完整交付流水线</text>
+  <text x="1515" y="260" text-anchor="end" font-size="14" fill="#64748b">核心逻辑 · 权限 · 资金 · 口径 · 共享链路</text>
+  <line x1="900" y1="187" x2="900" y2="215" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect x="75" y="292" width="155" height="92" fill="#ffffff" stroke="#b8c7dc" stroke-width="1.5" rx="12"/>
+    <text x="152" y="329" text-anchor="middle" font-size="19" font-weight="600">analyze</text>
+    <text x="152" y="356" text-anchor="middle" font-size="14" fill="#526078">澄清需求与证据</text>
+
+    <rect x="260" y="292" width="155" height="92" fill="#ffffff" stroke="#b8c7dc" stroke-width="1.5" rx="12"/>
+    <text x="337" y="329" text-anchor="middle" font-size="19" font-weight="600">spec</text>
+    <text x="337" y="356" text-anchor="middle" font-size="14" fill="#526078">AC 验收标准</text>
+    <text x="337" y="377" text-anchor="middle" font-size="14" fill="#64748b">用户确认</text>
+
+    <rect x="445" y="292" width="155" height="92" fill="#ffffff" stroke="#b8c7dc" stroke-width="1.5" rx="12"/>
+    <text x="522" y="329" text-anchor="middle" font-size="19" font-weight="600">plan</text>
+    <text x="522" y="356" text-anchor="middle" font-size="14" fill="#526078">Task 与 AC 映射</text>
+    <text x="522" y="377" text-anchor="middle" font-size="14" fill="#64748b">用户确认</text>
+
+    <rect x="630" y="292" width="155" height="92" fill="#ffffff" stroke="#b8c7dc" stroke-width="1.5" rx="12"/>
+    <text x="707" y="329" text-anchor="middle" font-size="19" font-weight="600">build</text>
+    <text x="707" y="356" text-anchor="middle" font-size="14" fill="#526078">垂直切片实现</text>
+
+    <rect x="815" y="292" width="155" height="92" fill="#ffffff" stroke="#b8c7dc" stroke-width="1.5" rx="12"/>
+    <text x="892" y="329" text-anchor="middle" font-size="19" font-weight="600">test</text>
+    <text x="892" y="356" text-anchor="middle" font-size="14" fill="#526078">TDD · TEST 映射</text>
+
+    <rect x="1000" y="292" width="155" height="92" fill="#ffffff" stroke="#b8c7dc" stroke-width="1.5" rx="12"/>
+    <text x="1077" y="329" text-anchor="middle" font-size="19" font-weight="600">review</text>
+    <text x="1077" y="356" text-anchor="middle" font-size="14" fill="#526078">五维 AI 审查</text>
+
+    <rect x="1185" y="292" width="155" height="92" fill="#ffffff" stroke="#b8c7dc" stroke-width="1.5" rx="12"/>
+    <text x="1262" y="329" text-anchor="middle" font-size="19" font-weight="600">accept</text>
+    <text x="1262" y="356" text-anchor="middle" font-size="14" fill="#526078">证据与缺口</text>
+
+    <rect x="1370" y="292" width="155" height="92" fill="#eaf8f1" stroke="#8fcdb2" stroke-width="1.5" rx="12"/>
+    <text x="1447" y="329" text-anchor="middle" font-size="19" font-weight="600">ship</text>
+    <text x="1447" y="356" text-anchor="middle" font-size="14" fill="#526078">提交与交付</text>
+
+    <line x1="230" y1="338" x2="250" y2="338" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    <line x1="415" y1="338" x2="435" y2="338" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    <line x1="600" y1="338" x2="620" y2="338" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    <line x1="785" y1="338" x2="805" y2="338" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    <line x1="970" y1="338" x2="990" y2="338" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    <line x1="1155" y1="338" x2="1175" y2="338" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    <line x1="1340" y1="338" x2="1360" y2="338" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  </g>
+  <text x="800" y="440" text-anchor="middle" font-size="14" fill="#64748b">失败按根因退回 analyze / plan / build / test，不一律从头重来</text>
+
+  <!-- 轻量通道 -->
+  <rect x="45" y="500" width="1510" height="135" fill="#ffffff" stroke="#dce3ee" stroke-width="1.5" rx="18"/>
+  <text x="75" y="535" font-size="19" font-weight="600">轻需求：Vibe 补丁</text>
+  <rect x="350" y="519" width="210" height="70" fill="#fff6df" stroke="#e7c575" stroke-width="1.5" rx="12"/>
+  <text x="455" y="549" text-anchor="middle" font-size="19" font-weight="600">patch 直接修改</text>
+  <text x="455" y="573" text-anchor="middle" font-size="14" fill="#526078">单点 · 易回滚</text>
+  <line x1="560" y1="554" x2="650" y2="554" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <rect x="660" y="519" width="210" height="70" fill="#fff6df" stroke="#e7c575" stroke-width="1.5" rx="12"/>
+  <text x="765" y="549" text-anchor="middle" font-size="19" font-weight="600">快速审查</text>
+  <text x="765" y="573" text-anchor="middle" font-size="14" fill="#526078">正确性 · 维护性 · 测试</text>
+  <line x1="870" y1="554" x2="960" y2="554" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <rect x="970" y="519" width="250" height="70" fill="#fff6df" stroke="#e7c575" stroke-width="1.5" rx="12"/>
+  <text x="1095" y="549" text-anchor="middle" font-size="19" font-weight="600">验证并交付</text>
+  <text x="1095" y="573" text-anchor="middle" font-size="14" fill="#526078">不强制生成全流程文档</text>
+  <text x="1450" y="611" text-anchor="end" font-size="14" fill="#64748b">改动扩大时升级全流程</text>
+
+  <!-- 产物 -->
+  <rect x="45" y="660" width="1510" height="180" fill="#ffffff" stroke="#dce3ee" stroke-width="1.5" rx="18"/>
+  <text x="75" y="695" font-size="19" font-weight="600">需求资产：.spec-flow-workspace/&lt;feature&gt;/</text>
+  <text x="1515" y="695" text-anchor="end" font-size="14" fill="#64748b">同一 feature · 同一组 AC-N · 可跨会话续接</text>
+
+  <rect x="175" y="722" width="250" height="75" fill="#f2efff" stroke="#b7aae8" stroke-width="1.5" rx="12"/>
+  <text x="300" y="753" text-anchor="middle" font-size="19" font-weight="600">spec.md</text>
+  <text x="300" y="778" text-anchor="middle" font-size="14" fill="#526078">业务口径 · AC-N</text>
+  <line x1="425" y1="759" x2="525" y2="759" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <rect x="535" y="722" width="250" height="75" fill="#f2efff" stroke="#b7aae8" stroke-width="1.5" rx="12"/>
+  <text x="660" y="753" text-anchor="middle" font-size="19" font-weight="600">plan.md</text>
+  <text x="660" y="778" text-anchor="middle" font-size="14" fill="#526078">Task → TEST → AC</text>
+  <line x1="785" y1="759" x2="885" y2="759" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <rect x="895" y="722" width="250" height="75" fill="#f2efff" stroke="#b7aae8" stroke-width="1.5" rx="12"/>
+  <text x="1020" y="753" text-anchor="middle" font-size="19" font-weight="600">review.md</text>
+  <text x="1020" y="778" text-anchor="middle" font-size="14" fill="#526078">结论 · 阻断 · 豁免</text>
+  <line x1="1145" y1="759" x2="1245" y2="759" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <rect x="1255" y="722" width="250" height="75" fill="#f2efff" stroke="#b7aae8" stroke-width="1.5" rx="12"/>
+  <text x="1380" y="753" text-anchor="middle" font-size="19" font-weight="600">acceptance.md</text>
+  <text x="1380" y="778" text-anchor="middle" font-size="14" fill="#526078">每条 AC 的结果与证据</text>
+
+  <!-- 支撑能力 -->
+  <rect x="45" y="865" width="480" height="135" fill="#ffffff" stroke="#dce3ee" stroke-width="1.5" rx="18"/>
+  <text x="75" y="901" font-size="19" font-weight="600">机器校验</text>
+  <text x="75" y="934" font-size="14" fill="#526078">validate：spec → plan → review → accept</text>
+  <text x="75" y="963" font-size="14" fill="#64748b">结构 · 引用 · AC 覆盖 · 证据 · 结论</text>
+
+  <rect x="560" y="865" width="480" height="135" fill="#ffffff" stroke="#dce3ee" stroke-width="1.5" rx="18"/>
+  <text x="590" y="901" font-size="19" font-weight="600">全程纪律</text>
+  <text x="590" y="934" font-size="14" fill="#526078">改动最小化 · 证据分级 · 编码约定</text>
+  <text x="590" y="963" font-size="14" fill="#64748b">自动验证优先，仅人工项交给用户</text>
+
+  <rect x="1075" y="865" width="480" height="135" fill="#ffffff" stroke="#dce3ee" stroke-width="1.5" rx="18"/>
+  <text x="1105" y="901" font-size="19" font-weight="600">安装与体检</text>
+  <text x="1105" y="934" font-size="14" fill="#526078">install → Qoder / Claude Code</text>
+  <text x="1105" y="963" font-size="14" fill="#64748b">doctor 只读检查缺失、漂移与失效引用</text>
+</svg>

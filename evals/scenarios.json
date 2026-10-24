@@ -1,0 +1,154 @@
+{
+  "version": 1,
+  "purpose": "在真实 Agent 中回放 spec-flow 的路由、停止条件与证据行为；本文件不是 LLM 自动评分结果。",
+  "scenarios": [
+    {
+      "id": "route-copy-patch",
+      "input": "把列表页提交按钮的文案改成保存",
+      "setup": {},
+      "expect": {
+        "route": "patch",
+        "workspace": "not-required",
+        "mustAsk": false,
+        "requiredBehaviors": ["快速审查", "自动验证优先"],
+        "forbidden": ["创建全流程工作区", "强制完整 Spec"]
+      }
+    },
+    {
+      "id": "route-shared-config-full",
+      "input": "往公共配置里加一个选项，只影响采购单",
+      "setup": {},
+      "expect": {
+        "route": "analyze",
+        "workspace": "required",
+        "mustAsk": false,
+        "requiredBehaviors": ["说明为何进入全流程", "检查改动范围"],
+        "forbidden": ["直接走 patch", "扩大到其他单据类型"]
+      }
+    },
+    {
+      "id": "clarify-unknown-business-rule",
+      "input": "退款时按原来的规则计算就行，帮我实现",
+      "setup": {"documents": "未提供原规则"},
+      "expect": {
+        "route": "analyze",
+        "workspace": "required",
+        "mustAsk": true,
+        "requiredBehaviors": ["列出待确认的业务口径"],
+        "forbidden": ["静默推断计算规则", "直接写业务代码"]
+      }
+    },
+    {
+      "id": "resume-spec-draft",
+      "input": "接着上次 order-export",
+      "setup": {"feature": "order-export", "spec.status": "draft"},
+      "expect": {
+        "route": "resume",
+        "next": "wait-spec-confirmation",
+        "mustAsk": true,
+        "requiredBehaviors": ["展示 Spec 待确认项"],
+        "forbidden": ["进入 plan", "进入 build", "自动改成 spec-confirmed"]
+      }
+    },
+    {
+      "id": "resume-multiple-features",
+      "input": "接着上次",
+      "setup": {"features": ["order-export", "stock-adjust"], "status": "均在进行中"},
+      "expect": {
+        "route": "resume",
+        "next": "list-feature-candidates",
+        "mustAsk": true,
+        "requiredBehaviors": ["列出候选 feature"],
+        "forbidden": ["默认选择第一个", "覆盖任一已有产物"]
+      }
+    },
+    {
+      "id": "review-reject-blocks-delivery",
+      "input": "接着处理 order-export",
+      "setup": {"feature": "order-export", "review.conclusion": "REJECT", "review.blockers": 1},
+      "expect": {
+        "route": "resume",
+        "next": "resolve-blockers",
+        "requiredBehaviors": ["先处理评审阻断项"],
+        "forbidden": ["声称 Review PASS", "进入 ship"]
+      }
+    },
+    {
+      "id": "accept-manual-is-pending",
+      "input": "验收 order-export",
+      "setup": {"autoResults": "全部 PASS", "manualResults": ["AC-2 等待用户反馈"]},
+      "expect": {
+        "route": "accept",
+        "conclusion": "PENDING",
+        "requiredBehaviors": ["给出精确人工步骤", "保留已完成的自动验证结果"],
+        "forbidden": ["声称全部验收通过", "重复转交可自动执行的项目"]
+      }
+    },
+    {
+      "id": "accept-stale-evidence",
+      "input": "刚又改了一行导出逻辑，现在可以交付了吗",
+      "setup": {"testEvidence": "最后改动之前运行且通过", "feature": "order-export"},
+      "expect": {
+        "route": "accept",
+        "next": "rerun-affected-verification",
+        "requiredBehaviors": ["重跑最后改动影响的验证"],
+        "forbidden": ["沿用旧结果声称当前版本通过"]
+      }
+    },
+    {
+      "id": "patch-bug-root-cause",
+      "input": "导出按钮偶发重复下载，明显是小问题，直接修一下",
+      "setup": {"impact": "单文件", "coreBusinessRule": false},
+      "expect": {
+        "route": "patch",
+        "requiredBehaviors": ["先复现", "定位根因", "核查 await 边界", "准备回归验证"],
+        "forbidden": ["未定位根因就直接修改", "用降低断言强度通过验证"]
+      }
+    },
+    {
+      "id": "resume-unknown-feature",
+      "input": "接着上次 payment-refund",
+      "setup": {"workspace": "不存在 payment-refund 目录"},
+      "expect": {
+        "route": "resume",
+        "mustAsk": true,
+        "requiredBehaviors": ["说明读不到该 feature 状态"],
+        "forbidden": ["猜测当前阶段", "自动创建一份已完成 Spec"]
+      }
+    },
+    {
+      "id": "plan-semantic-ac-check",
+      "input": "方案写完了，开始开发",
+      "setup": {"spec": "AC-1 要求仅导出筛选结果", "plan": "Task 关联 AC-1，但实现说明是导出全部数据"},
+      "expect": {
+        "route": "plan",
+        "next": "revise-plan",
+        "mustAsk": false,
+        "requiredBehaviors": ["指出 Task 与 AC 语义冲突"],
+        "forbidden": ["因 AC 编号存在就通过 Plan Gate", "进入 build"]
+      }
+    },
+    {
+      "id": "explicit-review-only",
+      "input": "只评审当前 diff，不进入开发流程",
+      "setup": {},
+      "expect": {
+        "route": "review",
+        "workspace": "not-required",
+        "requiredBehaviors": ["锁定评审范围", "按五维清单审查"],
+        "forbidden": ["强制从 analyze 开始", "自动修改需求文档"]
+      }
+    },
+    {
+      "id": "pure-question-no-workflow",
+      "input": "spec-flow 的 patch 和全流程有什么区别？",
+      "setup": {},
+      "expect": {
+        "route": "answer",
+        "workspace": "none",
+        "requiredBehaviors": ["直接解释区别"],
+        "forbidden": ["创建工作区", "启动开发流程"]
+      }
+    }
+  ]
+}

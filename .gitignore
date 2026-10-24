@@ -1,0 +1,4 @@
+node_modules/
+*.tgz
+*.smoke-test.docx
+.DS_Store
